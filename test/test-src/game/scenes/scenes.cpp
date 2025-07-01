@@ -117,8 +117,8 @@ void gamePlayScene::createAssets() {
    
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
-        // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
-        // if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
+        if(backgroundMusic) backgroundMusic->returnMusic().play(); 
+        if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
 
         buttonClickSound = std::make_unique<SoundClass>(Constants::BUTTONCLICK_SOUNDBUFF, Constants::BUTTONCLICKSOUND_VOLUME);
 
