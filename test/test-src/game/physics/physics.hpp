@@ -98,7 +98,9 @@ namespace physics{
 
     // for 3D calculations
     void calculateRayCast3d(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, sf::VertexArray& rays, sf::VertexArray& wallLine);
-    void navigateMaze(std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap, std::vector<size_t>& tilePathInstruction);
+
+    // sprite 3D modifications
+    void calculateEnemySprite3D(std::unique_ptr<Enemy> enemy, std::unique_ptr<Player>& player, std::unique_ptr<TileMap>& tileMap);
 
     // collision methods
     bool circleCollision(const sf::Vector2f pos1, float radius1, const sf::Vector2f pos2, float radius2);

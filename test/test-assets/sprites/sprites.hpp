@@ -1,6 +1,5 @@
 //
 //  sprites.hpp
-//  sfml game template
 //
 //
 
@@ -23,6 +22,7 @@ public:
     virtual ~Sprite() = default;
 
     sf::Vector2f getSpritePos() const { return position; };
+    void updateSpritePos(sf::Vector2f position) { this->position = position; spriteCreated->setPosition(position); }
     sf::Sprite& returnSpritesShape() const { return *spriteCreated; } 
     bool getVisibleState() const { return visibleState; }
     void setVisibleState(bool visibleState){ this->visibleState = visibleState; }
@@ -154,31 +154,6 @@ protected:
     sf::Vector2f acceleration{}; 
 };
 
-class Cloud : public NonStatic{
-public:
-    explicit Cloud(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, float speed, sf::Vector2f acceleration, std::weak_ptr<sf::Uint8[]>& bitMask)
-        : Sprite(position, scale, texture), NonStatic(position, scale, texture, speed, acceleration), bitMask(bitMask) {}
-    ~Cloud() override{}; 
-
-    std::shared_ptr<sf::Uint8[]> const getBitmask(size_t index) const override;     
-    bool getMoveState() const { return true; }
-     
-private: 
-    std::weak_ptr<sf::Uint8[]> bitMask;
-};
-
-class Coin : public NonStatic{
-public:
-    explicit Coin(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, float speed, sf::Vector2f acceleration, std::weak_ptr<sf::Uint8[]>& bitMask)
-        : Sprite(position, scale, texture), NonStatic(position, scale, texture, speed, acceleration), bitMask(bitMask) {}
-    ~Coin() override{}; 
-
-    std::shared_ptr<sf::Uint8[]> const getBitmask(size_t index) const override;     
-     
-private: 
-    std::weak_ptr<sf::Uint8[]> bitMask;
-};
-
 // player class deriving from NonStatic; refers to movable player 
 class Player : public NonStatic, public Animated {
  public:
@@ -204,8 +179,23 @@ class Player : public NonStatic, public Animated {
     void setHeadingAngle(float headingAngle);
     float getHeadingAngle() const { return headingAngle; }
     bool isCentered() const { return true; }
-    bool getAutoNavigate() const { return autoNavigate; }
-    void setAutoNavigate(bool autoNavigate) { this->autoNavigate = autoNavigate; }
+   
+    bool getTurnInProgress() const { return turnInProgress; }
+    int getTlesMovedThisTurn() const { return tilesMovedThisTurn; }
+    bool getIsMoving() const { return isMoving; }
+    int getCurrentDirection() const { return currentDirection; }
+    sf::Vector2f getTargetPosition() const { return targetPosition; }
+
+    void setTurnInProgress(bool turnInProgress) { this->turnInProgress = turnInProgress; }
+    void setTilesMovedThisTurn(int tilesMovedThisTurn) { this->tilesMovedThisTurn = tilesMovedThisTurn; }
+    void setIsMoving(bool isMoving) { this->isMoving = isMoving; }
+    void setCurrentDirection(int currentDirection) { this->currentDirection = currentDirection; }
+    void setTargetPosition(sf::Vector2f targetPosition) { this->targetPosition = targetPosition; spriteCreated->setPosition(targetPosition); }
+
+    void setIsSpecialMovement(bool isSpecialMovement) { this->isSpecialMovement = isSpecialMovement; }
+    bool getIsSpecialMovement() const { return isSpecialMovement; }
+    void setHasReachedOtherPlayer(bool hasReachedOtherPlayer) { this->hasReachedOtherPlayer = hasReachedOtherPlayer; }
+    bool getHasReachedOtherPlayer() const { return hasReachedOtherPlayer; }
 
  private:
     bool firstTurnInstance = true; 
@@ -213,46 +203,14 @@ class Player : public NonStatic, public Animated {
     bool isJumping = false;  
     bool isFalling = false; 
     float headingAngle{}; 
-    bool autoNavigate = false;
-};
 
-// obstacle class deriving from NonStatic; refers to movable obstacles 
-class Obstacle : public NonStatic, public Animated {
-public:
-    explicit Obstacle(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, 
-                      float speed, sf::Vector2f acceleration,  
-                      const std::vector<sf::IntRect> animationRects, unsigned int indexMax, 
-                      const std::vector<std::weak_ptr<sf::Uint8[]>>& bitMask)
-        : Sprite(position, scale, texture), 
-          NonStatic(position, scale, texture, speed, acceleration), 
-          Animated(position, scale, texture, animationRects, indexMax, bitMask) 
-    {}
-    ~Obstacle() override = default;
-    
-    using Sprite::getDirectionVector;
-    sf::Vector2f getDirectionVector() const override { return directionVector; }
-    using NonStatic::setDirectionVector;
-    void setDirectionVector(float angle);
-
-private:
-};
-
-class Bullet : public NonStatic, public Animated {
-public:
-   explicit Bullet(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, 
-                    float speed, sf::Vector2f acceleration,  
-                    const std::vector<sf::IntRect> animationRects, unsigned int indexMax, 
-                    const std::vector<std::weak_ptr<sf::Uint8[]>>& bitMask)
-        : Sprite(position, scale, texture), 
-          NonStatic(position, scale, texture, speed, acceleration), 
-          Animated(position, scale, texture, animationRects, indexMax, bitMask) 
-    {}
-    ~Bullet() override = default;
-    
-    using NonStatic::setDirectionVector;
-    void setDirectionVector(sf::Vector2i projectionPos);
-
-private:
+    bool turnInProgress = false;
+    int tilesMovedThisTurn = 0;
+    bool isMoving = false;
+    int currentDirection = -1; 
+    sf::Vector2f targetPosition {}; 
+    bool isSpecialMovement = false; // true if player is doing special 4-tile movement
+    bool hasReachedOtherPlayer = false; // true if player has reached the other player during
 };
 
 class Button : public Animated {
@@ -272,4 +230,26 @@ public:
 
 private:
     bool clicked {}; 
+}; 
+
+class Bullet : public NonStatic, public Animated {
+public:
+   explicit Bullet(sf::Vector2f position, sf::Vector2f scale, std::weak_ptr<sf::Texture> texture, 
+                    float speed, sf::Vector2f acceleration,  
+                    const std::vector<sf::IntRect> animationRects, unsigned int indexMax, 
+                    const std::vector<std::weak_ptr<sf::Uint8[]>>& bitMask)
+        : Sprite(position, scale, texture), 
+          NonStatic(position, scale, texture, speed, acceleration), 
+          Animated(position, scale, texture, animationRects, indexMax, bitMask) 
+    {}
+    ~Bullet() override = default;
+    
+    using NonStatic::setDirectionVector;
+    void setDirectionVector(sf::Vector2i projectionPos);
+
+private:
+};
+
+class Enemy : public NonStatic {
+
 }; 

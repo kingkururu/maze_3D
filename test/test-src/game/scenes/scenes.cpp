@@ -117,8 +117,8 @@ void gamePlayScene::createAssets() {
    
         // Music
         backgroundMusic = std::make_unique<MusicClass>(std::move(Constants::BACKGROUNDMUSIC_MUSIC), Constants::BACKGROUNDMUSIC_VOLUME);
-        if(backgroundMusic) backgroundMusic->returnMusic().play(); 
-        if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
+        // if(backgroundMusic) backgroundMusic->returnMusic().play(); 
+        // if(backgroundMusic) backgroundMusic->returnMusic().setLoop(Constants::BACKGROUNDMUSIC_LOOP);
 
         buttonClickSound = std::make_unique<SoundClass>(Constants::BUTTONCLICK_SOUNDBUFF, Constants::BUTTONCLICKSOUND_VOLUME);
 
@@ -169,7 +169,7 @@ void gamePlayScene::setTime(){
 void gamePlayScene::handleInput() {
     handleMouseClick();
     handleSpaceKey(); 
-    if(!player->getAutoNavigate()) handleMovementKeys();
+    handleMovementKeys();
 }
 
 void gamePlayScene::handleMouseClick() {    
@@ -199,32 +199,26 @@ void gamePlayScene::handleMovementKeys() {
 
     sf::FloatRect playerBounds = player->returnSpritesShape().getGlobalBounds();
     sf::Vector2f originalPlayerPos = player->getSpritePos();
-
-    // std::cout << "Tile X: " << tileX << ", Tile Y: " << tileY << ", inex: " << tileIndexInMap << "can walk: "<< canWalkOnTile<< std::endl;
     
     if(FlagSystem::flagEvents.aPressed){ // turn left
         player->returnSpritesShape().rotate(-1.0f); // degrees
         float newAngle = player->returnSpritesShape().getRotation();
         player->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.dPressed){ // turn right 
         player->returnSpritesShape().rotate(1.0f); // degrees
         float newAngle = player->returnSpritesShape().getRotation();
         player->setHeadingAngle(newAngle);
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.wPressed && canWalkOnTile){ // front 
         physics::spriteMover(player, physics::followDirVec); 
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(false); // stop auto navigation
     }
     if(FlagSystem::flagEvents.sPressed && canWalkOnTile){ // back
         physics::spriteMover(player, physics::followDirVecOpposite); 
         FlagSystem::gameScene1Flags.begin = true;
-       // player->setAutoNavigate(true); // stop auto navigation
     }   
 
     int newTileX = static_cast<int>((player->getSpritePos().x - Constants::TILEMAP_POSITION.x) / Constants::TILE_WIDTH);
@@ -249,11 +243,7 @@ void gamePlayScene::handleMovementKeys() {
 
 // Keeps sprites inside screen bounds, checks for collisions, update scores, and sets flagEvents.gameEnd to true in an event of collision 
 void gamePlayScene::handleGameEvents() { 
-    // scoreText->getText().setPosition(MetaComponents::smallView.getCenter().x - 460, MetaComponents::smallView.getCenter().y - 270);
-    if(button1->getClickedBool() && player && player->getMoveState()){
-        physics::navigateMaze(player, tileMap1, Constants::TILEPATH_INSTRUCTION);
-        player->setAutoNavigate(true); 
-    }
+    
     physics::calculateRayCast3d(player, tileMap1, rays, wallLine); // modifies the ray 
 } 
 
@@ -286,7 +276,7 @@ void gamePlayScene::updateEntityStates(){ // manually change the sprite's state
 }
 
 void gamePlayScene::changeAnimation(){ // change animation for sprites. change animation for texts if necessary     if (button1 && button1->getVisibleState()) button1->changeAnimation(); 
-   // for (const auto& bullet : bullets) if (bullet) bullet->changeAnimation();
+   for (const auto& bullet : bullets) if (bullet) bullet->changeAnimation();
    if (button1) button1->changeAnimation(); 
 }
 
@@ -297,7 +287,7 @@ void gamePlayScene::updatePlayerAndView() {
 void gamePlayScene::updateDrawablesVisibility(){
     try{
         if(MetaComponents::globalTime > 3.0) introText->setVisibleState(false);
-        button1->setVisibleState(!FlagSystem::flagEvents.mPressed && !player->getAutoNavigate());
+       
     }
     catch(const std::exception & e){
         log_error("Exception in updateDrawablesVisibility: " + std::string(e.what()));
@@ -337,7 +327,7 @@ void gamePlayScene::drawInBigView(){
     }
     window.draw(wallLine);
 
-  //  drawVisibleObject(bullets[0]); 
+    drawVisibleObject(bullets[0]); 
     drawVisibleObject(frame); 
     drawVisibleObject(scoreText); 
     drawVisibleObject(introText);
@@ -355,7 +345,7 @@ void gamePlayScene::drawInBigView(){
         window.draw(rays); 
     }
 
-    drawVisibleObject(button1);
+    //drawVisibleObject(button1);
 }
 
 void gamePlayScene::drawInSmallView(){
