@@ -190,7 +190,6 @@ namespace physics {
             else {
                 originalPos.y = startPos.y - jumpHeight + (jumpHeight * ((elapsedTime - (jumpDuration / 2.0)) / (jumpDuration / 2.0)));
             }
-            // log_info("Jump in progress. Elapsed time: {}, Position: ({}, {})" + std::to_string(elapsedTime) + ", "+ std::to_string(originalPos.x) + ", " + std::to_string(originalPos.y));
         } else {
             elapsedTime = 0.0f;
             originalPos.y = startPos.y; // Reset to the initial position
