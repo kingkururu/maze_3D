@@ -51,10 +51,7 @@ namespace MetaComponents{
 namespace Constants { // not actually "constants" in terms of being fixed, but should never be altered after being read from the config.yaml file
     extern void initialize();
 
-    // make random positions each time
     extern sf::Vector2f makeRandomPosition(); 
-    extern sf::Vector2f makeRandomPositionCloud(); 
-    extern sf::Vector2f makeRandomPositionCoin(); 
 
     void writeRandomTileMap(const std::filesystem::path filePath, std::function<void(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex)> DFSmazeGenerator); 
     void DFSmazeGenerator(std::ofstream& file, const unsigned short startingTileIndex, const unsigned short endingTileIndex, const unsigned short walkableTileIndex, const unsigned short wallTileIndex);
