@@ -1,14 +1,12 @@
-
-## Raycast test application
+## Raycast maze 
 
 This test game is made using my game template with SFML and C++. The makefile is set to download all the necessary stuff like homebrew, spdlog, and sfml. 
 
-To compile and run, download the zip file from release.
-locate program through terminal via
+To compile and run, download the zip file from release. locate program through terminal via
+
 cd /User/ … (type in the path)
-cd maze_3D-1.0.3
-make install
-brew install sfml@2
+cd 3Dquoridor
+make install (if this doesn't work, download homebrew, and then install sfml@2, spdlog, fmt, and yaml-cpp seperately)
 make test
 
 설정 -> 개인정보 보호 및 보안
