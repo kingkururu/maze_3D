@@ -1,6 +1,6 @@
 # 3D Maze Game
 
-A 3D maze game built with C++ and SFML, featuring advanced pathfinding algorithms and automated navigation systems. Building on the raycasting algorithm from previous projects, this game incorporates intelligent maze generation and AI-assisted pathfinding for enhanced gameplay experience.
+A 3D maze game built with C++ and SFML, featuring pathfinding algorithms and automated navigation systems. This is built on the raycasting algorithm from the previous project. 
 
 <img width="641" alt="Image" src="https://github.com/user-attachments/assets/681bd3e9-5e92-47ae-bc73-865dbb595454" />
 <img width="884" alt="Image" src="https://github.com/user-attachments/assets/4856a85c-618c-4cc3-9e42-bb8f56957bd5" />
@@ -139,6 +139,6 @@ Combines the guaranteed optimality of Dijkstra's algorithm with heuristic guidan
 
 ## 🎨 Assets Credits
 
-- **Music**: [Best Game Console](https://pixabay.com/music/video-games-game-background-1-321720/) from Pixabay
+- **Music**: [Game Background](https://pixabay.com/music/video-games-game-background-1-321720/) from Pixabay
 - **Graphics**: Custom artwork created using Canva and Canva AI
 - **Framework**: Built using the Custom SFML Game Framework https://github.com/kingkururu/sfml_game_template/edit/main/README.md
