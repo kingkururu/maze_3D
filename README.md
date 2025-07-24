@@ -139,5 +139,6 @@ Combines the guaranteed optimality of Dijkstra's algorithm with heuristic guidan
 ## 🎨 Assets Credits
 
 - **Music**: [Game Background](https://pixabay.com/music/video-games-game-background-1-321720/) from Pixabay
+- **Pixel font**: [LLPixel Font](https://www.dafont.com/llpixel.font)
 - **Graphics**: Custom artwork created using Canva and Canva AI
 - **Framework**: Built using the Custom SFML Game Framework https://github.com/kingkururu/sfml_game_template/edit/main/README.md
