@@ -6,7 +6,7 @@ A 3D maze game built with C++ and SFML, featuring pathfinding algorithms and aut
 <img width="884" alt="Image" src="https://github.com/user-attachments/assets/4856a85c-618c-4cc3-9e42-bb8f56957bd5" />
 <img width="950" alt="Image" src="https://github.com/user-attachments/assets/ae51ba5a-fd90-45b8-8330-e17a46d82088" />
 
-## 🎯 Features
+## Features
 
 - **Procedural Maze Generation**: Random maze creation using Depth-First Search and Prim's algorithms
 - **3D Raycasting Rendering**: Immersive 3D perspective from 2D maze data
@@ -15,14 +15,14 @@ A 3D maze game built with C++ and SFML, featuring pathfinding algorithms and aut
 - **Performance Optimized**: Efficient maze generation and pathfinding algorithms
 - **File I/O Integration**: Save and load maze configurations
   
-## 🎮 Controls
+## Controls
 
 - **W**: Move forward
 - **S**: Move backward  
 - **A**: Rotate camera left / turn player left
 - **D**: Rotate camera right / turn player right
   
-## 📁 Project Structure
+## Project Structure
 
 ```
 /maze_3D
@@ -56,7 +56,7 @@ A 3D maze game built with C++ and SFML, featuring pathfinding algorithms and aut
 - **SFML**: Simple and Fast Multimedia Library for graphics and windowing
 - **Custom Game Framework**: Built on top of the SFML Game Framework
 
-## 🚀 Building & Running
+## Building & Running
 
 ### Installation
 
@@ -100,7 +100,7 @@ A 3D maze game built with C++ and SFML, featuring pathfinding algorithms and aut
    export PATH="path to other libraries if any of them is missing)
    ```
 
-## 🎯 Key Learning Outcomes
+## Key Learning Outcomes
 
 - **Algorithm Implementation**: Understanding maze generation and pathfinding algorithms
 - **Graph Theory Applications**: Practical application of DFS, Prim's, and A* algorithms
@@ -125,7 +125,7 @@ The game implements a sophisticated maze generation system that:
 - **Dynamic Guidance**: Real-time path updates and player assistance
 - **Manual Override**: Player can deviate path and start guided navigation
 
-## 🧠 Algorithm Details
+## Algorithm Details
 
 ### Depth-First Search (DFS)
 Creates mazes with long, winding passages by exploring paths as far as possible before backtracking. Results in fewer dead ends and more challenging navigation.
@@ -136,7 +136,7 @@ Generates more evenly distributed maze layouts by expanding outward from random 
 ### A* Pathfinding
 Combines the guaranteed optimality of Dijkstra's algorithm with heuristic guidance, efficiently finding the shortest path from start to goal using estimated distances.
 
-## 🎨 Assets Credits
+## Assets Credits
 
 - **Music**: [Game Background](https://pixabay.com/music/video-games-game-background-1-321720/) from Pixabay
 - **Pixel font**: [LLPixel Font](https://www.dafont.com/llpixel.font)
