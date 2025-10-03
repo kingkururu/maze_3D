@@ -115,3 +115,9 @@ The game implements a sophisticated maze generation system that:
 - **Pixel font**: [LLPixel Font](https://www.dafont.com/llpixel.font)
 - **Graphics**: Custom artwork created using Canva and Canva AI
 - **Framework**: Built using the Custom SFML Game Framework https://github.com/kingkururu/sfml_game_template/edit/main/README.md
+
+## Tools Used
+- **SFML**: https://github.com/SFML/SFML 
+- **Yaml-cpp**: https://github.com/jbeder/yaml-cpp
+- **Spdlog**: https://github.com/gabime/spdlog 
+- **FMT**: https://github.com/fmtlib/fmt 
