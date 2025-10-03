@@ -68,16 +68,10 @@ A 3D maze game built with C++ and SFML, featuring pathfinding algorithms and aut
 
 2. **Build the Project**:
    ```bash
-   make
-   ```
-   This will compile the raycasting demo along with the game framework.
-
-3. **Run the Demo**:
-   ```bash
-   make run
+   make test
    ```
 
-4. **Clean the Build**:
+3. **How to Clean the Build**:
    ```bash
    make clean
    ```
