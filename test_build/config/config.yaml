@@ -15,7 +15,7 @@ world:
   rays_num: 200 # number of rays
   ground_color: "CUSTOMCOLOR_BROWN"
   
-# Game score settings (unused)
+# Game score settings
 score:
   initial: 0
 
@@ -30,7 +30,7 @@ sprite:
   out_of_bounds_adjustment: 30 # pixels 
   player_y_pos_bounds_run: 440  # SCREEN_HEIGHT - SPRITE_OUT_OF_BOUNDS_ADJUSTMENT
 
-# Background settings (unused)
+# Background settings
 background:
   speed: 35.0 
   textures:
